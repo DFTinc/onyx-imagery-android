@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/save_images_layout_scrollview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dft_dk_blue" >
+
+        <RelativeLayout
+            android:id="@+id/save_images_layout_images"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <com.dft.onyx.enroll.util.ScalableImageView
+                android:id="@+id/save_images_fingerprint_image_raw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/base_layout_background_content_desc"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/onyx_launcher" />
+
+            <TextView
+                android:id="@+id/save_images_raw"
+                style="@style/FingerprintImageOverlayText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/save_images_fingerprint_image_raw"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/save_images_layout_raw" />
+
+            <com.dft.onyx.enroll.util.ScalableImageView
+                android:id="@+id/save_images_fingerprint_image_preprocessed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/save_images_fingerprint_image_raw"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/base_layout_background_content_desc"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/onyx_launcher" />
+
+            <TextView
+                android:id="@+id/save_images_preprocessed"
+                style="@style/FingerprintImageOverlayText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/save_images_fingerprint_image_preprocessed"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/save_images_layout_preprocessed" />
+
+            <com.dft.onyx.enroll.util.ScalableImageView
+                android:id="@+id/save_images_fingerprint_image_enhanced"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/save_images_fingerprint_image_preprocessed"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/base_layout_background_content_desc"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/onyx_launcher" />
+
+            <TextView
+                android:id="@+id/save_images_enhanced"
+                style="@style/FingerprintImageOverlayText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/save_images_fingerprint_image_enhanced"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/save_images_layout_enhanced" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/preview_enroll_button_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/save_images_layout_images"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/save_images_btn_cancel"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:scrollHorizontally="true"
+                android:text="@string/text_cancel"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/save_images_btn_save"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:gravity="center_vertical|center_horizontal"
+                android:scrollHorizontally="true"
+                android:text="@string/text_save"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</ScrollView>

@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="onyx-enroll-wizard-4.1.10">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/onyx-imagery/build/intermediates/exploded-aar/com.dft.android/onyx-enroll-wizard/4.1.10/res" />
+      <root url="jar://$PROJECT_DIR$/onyx-imagery/build/intermediates/exploded-aar/com.dft.android/onyx-enroll-wizard/4.1.10/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

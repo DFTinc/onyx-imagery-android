@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">OnyxImagery</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    
+    <string name="text_save">Save</string>
+    <string name="text_cancel">Cancel</string>
+    
+    <string name="save_images_layout_raw">Raw</string>
+    <string name="save_images_layout_preprocessed">Preprocessed</string>
+    <string name="save_images_layout_enhanced">Enhanced</string>
+    <string name="onyx_license">@string/license_key_value</string>
+
+</resources>
