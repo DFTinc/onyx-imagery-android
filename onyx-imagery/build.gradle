@@ -23,18 +23,10 @@ android {
 
         maven {
             url 'http://nexus.diamondfortress.com/nexus/content/repositories/releases/'
-            credentials {
-                username 'pushbot'
-                password 'I82much!'
-            }
         }
 
         maven {
             url 'http://nexus.diamondfortress.com/nexus/content/repositories/snapshots/'
-            credentials {
-                username 'pushbot'
-                password 'I82much!'
-            }
         }
     }
 
