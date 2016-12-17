@@ -1,8 +1,5 @@
 package com.dft.onyximagery;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -27,13 +24,19 @@ import com.dft.onyx.onyx_enroll_wizard.R;
 import com.dft.onyx.wizardroid.ContextVariable;
 import com.dft.onyx.wizardroid.WizardActivity;
 import com.dft.onyx.wizardroid.WizardStep;
+import com.dft.onyx.wizardroid.enrollwizard.EnrollWizard;
 import com.dft.onyxcamera.ui.CaptureMetrics;
 import com.dft.onyxcamera.ui.OnyxFragment;
+import com.dft.onyxcamera.ui.reticles.Reticle;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 public class OnyxImageryStep1 extends WizardStep {
 	private View mView;
 	private Context mContext;
 	private WizardActivity mWizardActivity;
+	private EnrollWizard mEnrollWizard;
 	private OnyxFragment mFragment;
 	private EnrollmentMetric mEnrolledEnrollmentMetric;
     private Animation mFadeIn;
@@ -54,7 +57,8 @@ public class OnyxImageryStep1 extends WizardStep {
 	
 	@ContextVariable
     private EnumFinger enumFinger = null;
-	
+
+	private Reticle.Orientation handedness = null;
 
 	// Must have an empty constructor for every step
 	public OnyxImageryStep1() {
@@ -65,6 +69,7 @@ public class OnyxImageryStep1 extends WizardStep {
 			Bundle savedInstanceState) {
 		mView = inflater.inflate(R.layout.base_layout, container, false); 
 		mContext = mWizardActivity = (WizardActivity) getActivity();
+		mEnrollWizard = (EnrollWizard) getActivity();
 		
 		LicenseCheckerUtil.validateLicense(mContext,
 				mContext.getString(com.dft.onyximagery.R.string.onyx_license));
@@ -78,6 +83,10 @@ public class OnyxImageryStep1 extends WizardStep {
     	if (null != getActivity().getActionBar()) {
         	getActivity().getActionBar().hide();
     	}
+		enumFinger = mEnrollWizard.getFingerToEnroll();
+		if (enumFinger.toString().contains("RIGHT")) {
+			setHandedness(Reticle.Orientation.RIGHT);
+		}
 
         createFadeInAnimation();
         createFadeOutAnimation();
@@ -93,57 +102,13 @@ public class OnyxImageryStep1 extends WizardStep {
         innerSpinner = (ImageView) mView.findViewById(R.id.base_layout_spinner_inner);
         mCaptureAnimationCallback = new	CaptureAnimationCallbackUtil().createCaptureAnimationCallback(mWizardActivity);
 	}
-	
-	private void createFadeInAnimation() {
-		mFadeIn = new AlphaAnimation(0.0f, 1.0f);
-        mFadeIn.setDuration(500);
-        mFadeIn.setAnimationListener(new AnimationListener() {
 
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                new CountDownTimer(1000, 1000) {
-
-                    @Override
-                    public void onFinish() {
-                        mPreviewFingerprintView.startAnimation(mFadeOut);
-                    }
-
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                    }
-
-                }.start();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationStart(Animation animation) {
-                mPreviewFingerprintView.setVisibility(View.VISIBLE);
-            }
-        });
+	public Reticle.Orientation getHandedness() {
+		return handedness;
 	}
-	
-	private void createFadeOutAnimation() {
-		mFadeOut = new AlphaAnimation(1.0f, 0.0f);
-        mFadeOut.setDuration(500);
-        mFadeOut.setAnimationListener(new AnimationListener() {
 
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                mPreviewFingerprintView.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-        });
+	public void setHandedness(Reticle.Orientation handedness) {
+		this.handedness = handedness;
 	}
 
 	@Override
@@ -156,6 +121,7 @@ public class OnyxImageryStep1 extends WizardStep {
 
 		// Add the OnyxFragment programatically
 		mFragment = new OnyxFragmentBuilder(mWizardActivity, R.id.fragment_content)
+			.setUseFingerReticleView(getHandedness())
 			.setEnrollmentMetric(mEnrolledEnrollmentMetric)
 			.setRawBitmapCallback(mRawBitmapCallback)
 			.setProcessedBitmapCallback(mProcessedBitmapCallback)
@@ -219,6 +185,58 @@ public class OnyxImageryStep1 extends WizardStep {
 			baseLayoutSpinnerOuterView.clearAnimation();
 			outerSpinner.setVisibility(View.GONE);
 		}
+	}
+
+	private void createFadeInAnimation() {
+		mFadeIn = new AlphaAnimation(0.0f, 1.0f);
+		mFadeIn.setDuration(500);
+		mFadeIn.setAnimationListener(new AnimationListener() {
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				new CountDownTimer(1000, 1000) {
+
+					@Override
+					public void onFinish() {
+						mPreviewFingerprintView.startAnimation(mFadeOut);
+					}
+
+					@Override
+					public void onTick(long millisUntilFinished) {
+					}
+
+				}.start();
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+			}
+
+			@Override
+			public void onAnimationStart(Animation animation) {
+				mPreviewFingerprintView.setVisibility(View.VISIBLE);
+			}
+		});
+	}
+
+	private void createFadeOutAnimation() {
+		mFadeOut = new AlphaAnimation(1.0f, 0.0f);
+		mFadeOut.setDuration(500);
+		mFadeOut.setAnimationListener(new AnimationListener() {
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				mPreviewFingerprintView.setVisibility(View.INVISIBLE);
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+			}
+
+			@Override
+			public void onAnimationStart(Animation animation) {
+			}
+		});
 	}
 	
 	private byte[] convertBitmapToBytes(Bitmap bitmap) {
