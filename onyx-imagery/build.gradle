@@ -8,6 +8,8 @@ android {
         applicationId "com.dft.onyximagery"
         minSdkVersion 16
         targetSdkVersion 25
+
+        resValue "string", "FILE_PROVIDER_AUTHORITY", "com.dft.onyximagery.fileprovider"
     }
 
     buildTypes {
@@ -48,6 +50,6 @@ android {
     }
 
     dependencies {
-        compile 'com.dft.android:onyx-enroll-wizard:4.1.20-SNAPSHOT'
+        compile 'com.dft.android:onyx-enroll-wizard:4.1.22-SNAPSHOT'
     }
 }
